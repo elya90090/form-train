@@ -1164,8 +1164,19 @@
         function formatPrice(input) {
             let value = input.value.replace(/[^0-9]/g, '');
             if (value) {
-                value = parseInt(value).toLocaleString('fa-IR');
-                input.value = value;
+                // تبدیل به عدد و سپس فرمت کردن با جداکننده سه رقمی
+                const formattedValue = parseInt(value).toLocaleString();
+                input.value = formattedValue;
+            }
+        }
+
+        // فرمت کردن قیمت در حین تایپ
+        function formatPriceOnInput(input) {
+            let value = input.value.replace(/[^0-9]/g, '');
+            if (value) {
+                // فرمت کردن با جداکننده سه رقمی
+                const formattedValue = parseInt(value).toLocaleString();
+                input.value = formattedValue;
             }
         }
 
@@ -1237,8 +1248,22 @@
             // فرمت قیمت
             const priceInput = document.getElementById(`suggestedPrice_${passengerNumber}`);
             if (priceInput) {
+                // فرمت کردن در حین تایپ
+                priceInput.addEventListener('input', function() {
+                    formatPriceOnInput(this);
+                });
+                
+                // فرمت کردن هنگام خروج از فیلد
                 priceInput.addEventListener('blur', function() {
                     formatPrice(this);
+                });
+                
+                // اجازه دادن فقط به اعداد و کاما
+                priceInput.addEventListener('keypress', function(e) {
+                    const char = String.fromCharCode(e.which);
+                    if (!/[0-9]/.test(char) && e.which !== 8 && e.which !== 46) {
+                        e.preventDefault();
+                    }
                 });
             }
 
@@ -1272,6 +1297,13 @@
                 submitBtn.disabled = true;
                 
                 const formData = new FormData(this);
+                
+                // پردازش قیمت - حذف کاما برای ارسال
+                const priceInput = document.getElementById('suggestedPrice_1');
+                if (priceInput.value) {
+                    const cleanPrice = priceInput.value.replace(/,/g, '');
+                    formData.set('passenger_1_suggested_price', cleanPrice);
+                }
                 
                 // تبدیل checkbox array به string
                 const messengers = [];
