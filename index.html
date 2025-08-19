@@ -538,14 +538,15 @@
 
         /* پیام توضیحی چشمک زن */
         .notice-section {
-            background: linear-gradient(45deg, #ff6b6b, #feca57, #48cae4, #9b59b6);
+            background: linear-gradient(45deg, #ff4757, #ff6348, #ff9ff3, #54a0ff);
             background-size: 400% 400%;
-            animation: gradientShift 3s ease-in-out infinite;
-            padding: 20px;
+            animation: gradientShift 2s ease-in-out infinite;
+            padding: 25px;
             border-radius: 15px;
             margin-bottom: 30px;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border: 3px solid #fff;
         }
 
         .notice-content {
@@ -553,20 +554,86 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
-            animation: bounce 2s ease-in-out infinite;
+            animation: glow 1.5s ease-in-out infinite alternate;
         }
 
         .notice-icon {
-            font-size: 28px;
-            animation: rotate 4s linear infinite;
+            font-size: 32px;
+            animation: spin 3s linear infinite;
         }
 
         .notice-text {
             color: white;
+            font-size: 22px;
+            font-weight: bold;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+            animation: colorChange 2s ease-in-out infinite;
+        }
+
+        .info-notice {
+            background: linear-gradient(45deg, #e74c3c, #f39c12, #2ecc71, #3498db, #9b59b6);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease-in-out infinite;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-notice::before {
+            content: '⚠️';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .info-notice-content {
+            color: white;
             font-size: 20px;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
             animation: pulse 2s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .info-notice-content span {
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        /* پیام رسان با 4 گزینه در 2 ردیف */
+        .messenger-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        @keyframes glow {
+            0% { filter: brightness(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)); }
+            100% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)); }
+        }
+
+        @keyframes colorChange {
+            0% { color: #fff; }
+            25% { color: #ffeb3b; }
+            50% { color: #ff5722; }
+            75% { color: #e91e63; }
+            100% { color: #fff; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
         @keyframes gradientShift {
@@ -670,6 +737,10 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 15px;
             }
+
+            .messenger-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
         
         /* ریسپانسیو موبایل */
@@ -750,6 +821,10 @@
                 flex-direction: column;
                 gap: 10px;
             }
+
+            .messenger-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 480px) {
@@ -782,6 +857,10 @@
             
             .sidebar-left,
             .sidebar-right {
+                grid-template-columns: 1fr;
+            }
+
+            .messenger-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -819,11 +898,20 @@
                 </div>
                 
                 <div class="tab-content">
-                    <!-- پیام توضیحی -->
+                    <!-- پیام توضیحی اول -->
                     <div class="notice-section">
                         <div class="notice-content">
                             <span class="notice-icon">📋</span>
                             <span class="notice-text">هر فرم برای یک نفر هست</span>
+                        </div>
+                    </div>
+
+                    <!-- پیام توضیحی دوم بهبود یافته -->
+                    <div class="info-notice">
+                        <div class="info-notice-content">
+                            <span>⚠️</span>
+                            <span>لطفاً اطلاعات وارد شده بر اساس کارت ملی یا پاسپورت باشد</span>
+                            <span>⚠️</span>
                         </div>
                     </div>
 
@@ -848,7 +936,7 @@
                                             <input type="text" id="passengerName_1" name="passenger_1_name" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="nationality_1">اتباع <span class="required">*</span></label>
+                                            <label for="nationality_1">ملیت <span class="required">*</span></label>
                                             <div class="radio-group">
                                                 <div class="radio-item">
                                                     <input type="radio" id="iranian_1" name="passenger_1_nationality" value="ایرانی" required onchange="toggleNationalityFields(1)">
@@ -869,6 +957,10 @@
                                         <div class="form-group conditional-field" id="passportField_1">
                                             <label for="passportNumber_1">شماره پاسپورت</label>
                                             <input type="text" id="passportNumber_1" name="passenger_1_passport" placeholder="شماره پاسپورت">
+                                        </div>
+                                        <div class="form-group conditional-field" id="countryField_1">
+                                            <label for="country_1">نام کشور</label>
+                                            <input type="text" id="country_1" name="passenger_1_country" placeholder="نام کشور">
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -912,9 +1004,9 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="suggestedPrice_1">قیمت پیشنهادی (تومان) <span class="required">*</span></label>
+                                            <label for="suggestedPrice_1">مبلغی که میخواهید هزینه کنید (تومان) <span class="required">*</span></label>
                                             <div class="price-input">
-                                                <input type="number" id="suggestedPrice_1" name="passenger_1_suggested_price" placeholder="0" min="0" required style="padding-left: 60px;">
+                                                <input type="text" id="suggestedPrice_1" name="passenger_1_suggested_price" placeholder="10,000,000" min="0" required style="padding-left: 60px;">
                                             </div>
                                         </div>
                                     </div>
@@ -925,7 +1017,7 @@
                                     <h3><span class="train-icon">💬</span>پیام‌رسان</h3>
                                     <div class="form-group">
                                         <label>پیام‌رسان مورد نظر برای اطلاع‌رسانی <span class="required">*</span></label>
-                                        <div class="checkbox-group">
+                                        <div class="messenger-grid">
                                             <div class="checkbox-item">
                                                 <input type="checkbox" id="sms_1" name="passenger_1_messenger" value="پیامک">
                                                 <label for="sms_1">پیامک</label>
@@ -942,6 +1034,17 @@
                                                 <input type="checkbox" id="whatsapp_1" name="passenger_1_messenger" value="واتساپ">
                                                 <label for="whatsapp_1">واتساپ</label>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- تایید اطلاعات -->
+                                <div class="form-section">
+                                    <h3><span class="train-icon">✅</span>تایید اطلاعات</h3>
+                                    <div class="form-group">
+                                        <div class="checkbox-item" style="background: rgba(22, 163, 74, 0.1); border: 2px solid #16a34a;">
+                                            <input type="checkbox" id="confirmInfo_1" name="passenger_1_confirm_info" value="تایید" required>
+                                            <label for="confirmInfo_1">تمام اطلاعات وارد شده صحیح می‌باشد</label>
                                         </div>
                                     </div>
                                 </div>
@@ -1005,22 +1108,31 @@
             const iranianRadio = document.getElementById(`iranian_${passengerNumber}`);
             const nationalCodeField = document.getElementById(`nationalCodeField_${passengerNumber}`);
             const passportField = document.getElementById(`passportField_${passengerNumber}`);
+            const countryField = document.getElementById(`countryField_${passengerNumber}`);
             const nationalCodeInput = document.getElementById(`nationalCode_${passengerNumber}`);
             const passportInput = document.getElementById(`passportNumber_${passengerNumber}`);
+            const countryInput = document.getElementById(`country_${passengerNumber}`);
             
             if (iranianRadio.checked) {
                 nationalCodeField.style.display = 'block';
                 passportField.classList.remove('show');
                 passportField.style.display = 'none';
+                countryField.classList.remove('show');
+                countryField.style.display = 'none';
                 nationalCodeInput.required = true;
                 passportInput.required = false;
+                countryInput.required = false;
                 passportInput.value = '';
+                countryInput.value = '';
             } else {
                 nationalCodeField.style.display = 'none';
                 passportField.classList.add('show');
                 passportField.style.display = 'block';
+                countryField.classList.add('show');
+                countryField.style.display = 'block';
                 nationalCodeInput.required = false;
                 passportInput.required = true;
+                countryInput.required = true;
                 nationalCodeInput.value = '';
             }
         }
@@ -1172,11 +1284,20 @@
 
         // فرمت کردن قیمت در حین تایپ
         function formatPriceOnInput(input) {
+            // حفظ موقعیت کرسر
+            const cursorPosition = input.selectionStart;
+            const oldLength = input.value.length;
+            
             let value = input.value.replace(/[^0-9]/g, '');
             if (value) {
                 // فرمت کردن با جداکننده سه رقمی
                 const formattedValue = parseInt(value).toLocaleString();
                 input.value = formattedValue;
+                
+                // تنظیم موقعیت کرسر
+                const newLength = input.value.length;
+                const lengthDiff = newLength - oldLength;
+                input.setSelectionRange(cursorPosition + lengthDiff, cursorPosition + lengthDiff);
             }
         }
 
@@ -1249,7 +1370,7 @@
             const priceInput = document.getElementById(`suggestedPrice_${passengerNumber}`);
             if (priceInput) {
                 // فرمت کردن در حین تایپ
-                priceInput.addEventListener('input', function() {
+                priceInput.addEventListener('input', function(e) {
                     formatPriceOnInput(this);
                 });
                 
@@ -1258,10 +1379,21 @@
                     formatPrice(this);
                 });
                 
-                // اجازه دادن فقط به اعداد و کاما
-                priceInput.addEventListener('keypress', function(e) {
-                    const char = String.fromCharCode(e.which);
-                    if (!/[0-9]/.test(char) && e.which !== 8 && e.which !== 46) {
+                // فقط اعداد و بک‌اسپیس و حذف
+                priceInput.addEventListener('keydown', function(e) {
+                    // اجازه: اعداد، backspace, delete, tab, escape, enter, home, end, left, right
+                    if ([46, 8, 9, 27, 13, 110, 190].indexOf(e.keyCode) !== -1 ||
+                        // اجازه: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                        (e.keyCode === 65 && e.ctrlKey === true) ||
+                        (e.keyCode === 67 && e.ctrlKey === true) ||
+                        (e.keyCode === 86 && e.ctrlKey === true) ||
+                        (e.keyCode === 88 && e.ctrlKey === true) ||
+                        // اجازه: home, end, left, right
+                        (e.keyCode >= 35 && e.keyCode <= 39)) {
+                        return;
+                    }
+                    // فقط اعداد
+                    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
                         e.preventDefault();
                     }
                 });
@@ -1282,6 +1414,14 @@
             // ارسال فرم
             document.getElementById('trainTicketForm').addEventListener('submit', function(e) {
                 e.preventDefault();
+                
+                // بررسی تایید اطلاعات
+                const confirmCheckbox = document.getElementById('confirmInfo_1');
+                if (!confirmCheckbox.checked) {
+                    alert('لطفاً تایید کنید که تمام اطلاعات وارد شده صحیح است');
+                    confirmCheckbox.focus();
+                    return;
+                }
                 
                 // بررسی انتخاب پیام‌رسان
                 validateMessengers(1);
@@ -1334,6 +1474,8 @@
                         document.getElementById('nationalCodeField_1').style.display = 'block';
                         document.getElementById('passportField_1').style.display = 'none';
                         document.getElementById('passportField_1').classList.remove('show');
+                        document.getElementById('countryField_1').style.display = 'none';
+                        document.getElementById('countryField_1').classList.remove('show');
                         
                         // اسکرول به پیام موفقیت
                         successMessage.scrollIntoView({ behavior: 'smooth' });
