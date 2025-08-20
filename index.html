@@ -617,6 +617,69 @@
             margin-top: 15px;
         }
 
+        /* نشانگر انتخاب چندتایی */
+        .messenger-note {
+            background: rgba(22, 163, 74, 0.1);
+            border: 1px solid rgba(22, 163, 74, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #059669;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .messenger-note::before {
+            content: '💡';
+            font-size: 16px;
+        }
+
+        /* استایل تأیید اطلاعات */
+        .confirmation-section {
+            background: linear-gradient(135deg, #059669 0%, #16a34a 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(5, 150, 105, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .confirmation-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .confirmation-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .confirmation-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: white;
+            cursor: pointer;
+        }
+
+        .confirmation-item label {
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
         @keyframes glow {
             0% { filter: brightness(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)); }
             100% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)); }
@@ -718,6 +781,24 @@
                 opacity: 1;
                 transform: translateX(0);
             }
+        }
+
+        /* استایل خطای validation */
+        .form-group.error input,
+        .form-group.error select {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+        }
+
+        .error-text {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group.error .error-text {
+            display: block;
         }
 
         /* ریسپانسیو تبلت */
@@ -934,6 +1015,7 @@
                                         <div class="form-group">
                                             <label for="passengerName_1">نام و نام خانوادگی مسافر <span class="required">*</span></label>
                                             <input type="text" id="passengerName_1" name="passenger_1_name" required>
+                                            <div class="error-text">لطفاً نام و نام خانوادگی را وارد کنید</div>
                                         </div>
                                         <div class="form-group">
                                             <label for="nationality_1">ملیت <span class="required">*</span></label>
@@ -953,14 +1035,17 @@
                                         <div class="form-group" id="nationalCodeField_1">
                                             <label for="nationalCode_1">کد ملی</label>
                                             <input type="text" id="nationalCode_1" name="passenger_1_national_code" placeholder="کد ملی 10 رقمی" maxlength="10" pattern="[0-9]{10}">
+                                            <div class="error-text">کد ملی معتبر نیست</div>
                                         </div>
                                         <div class="form-group conditional-field" id="passportField_1">
-                                            <label for="passportNumber_1">شماره پاسپورت</label>
+                                            <label for="passportNumber_1">شماره پاسپورت <span class="required">*</span></label>
                                             <input type="text" id="passportNumber_1" name="passenger_1_passport" placeholder="شماره پاسپورت">
+                                            <div class="error-text">شماره پاسپورت معتبر نیست</div>
                                         </div>
                                         <div class="form-group conditional-field" id="countryField_1">
-                                            <label for="country_1">نام کشور</label>
+                                            <label for="country_1">نام کشور <span class="required">*</span></label>
                                             <input type="text" id="country_1" name="passenger_1_country" placeholder="نام کشور">
+                                            <div class="error-text">نام کشور را وارد کنید</div>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -969,10 +1054,12 @@
                                             <div class="date-input">
                                                 <input type="text" id="birthDate_1" name="passenger_1_birth_date" placeholder="1370/01/01" pattern="[0-9]{4}/[0-9]{2}/[0-9]{2}" required maxlength="10">
                                             </div>
+                                            <div class="error-text">تاریخ تولد معتبر نیست</div>
                                         </div>
                                         <div class="form-group">
                                             <label for="mobile_1">شماره همراه <span class="required">*</span></label>
                                             <input type="tel" id="mobile_1" name="passenger_1_mobile" placeholder="09xxxxxxxxx" required>
+                                            <div class="error-text">شماره موبایل معتبر نیست</div>
                                         </div>
                                     </div>
                                 </div>
@@ -984,12 +1071,14 @@
                                         <div class="form-group">
                                             <label for="route_1">مسیر <span class="required">*</span></label>
                                             <input type="text" id="route_1" name="passenger_1_route" placeholder="مثال: تهران - مشهد" required>
+                                            <div class="error-text">مسیر سفر را وارد کنید</div>
                                         </div>
                                         <div class="form-group">
                                             <label for="departureDate_1">تاریخ حرکت <span class="required">*</span></label>
                                             <div class="date-input">
                                                 <input type="text" id="departureDate_1" name="passenger_1_departure_date" placeholder="1404/05/28" pattern="[0-9]{4}/[0-9]{2}/[0-9]{2}" required maxlength="10">
                                             </div>
+                                            <div class="error-text">تاریخ حرکت معتبر نیست</div>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -1002,12 +1091,14 @@
                                                 <option value="تندرو">تندرو</option>
                                                 <option value="اتوبوسی">اتوبوسی</option>
                                             </select>
+                                            <div class="error-text">نوع قطار را انتخاب کنید</div>
                                         </div>
                                         <div class="form-group">
                                             <label for="suggestedPrice_1">مبلغی که میخواهید هزینه کنید (تومان) <span class="required">*</span></label>
                                             <div class="price-input">
                                                 <input type="text" id="suggestedPrice_1" name="passenger_1_suggested_price" placeholder="10,000,000" min="0" required style="padding-left: 60px;">
                                             </div>
+                                            <div class="error-text">مبلغ را وارد کنید</div>
                                         </div>
                                     </div>
                                 </div>
@@ -1017,10 +1108,13 @@
                                     <h3><span class="train-icon">💬</span>پیام‌رسان</h3>
                                     <div class="form-group">
                                         <label>پیام‌رسان مورد نظر برای اطلاع‌رسانی <span class="required">*</span></label>
+                                        <div class="messenger-note">
+                                            می‌توانید یک یا چند پیام‌رسان را انتخاب کنید
+                                        </div>
                                         <div class="messenger-grid">
                                             <div class="checkbox-item">
-                                                <input type="checkbox" id="sms_1" name="passenger_1_messenger" value="پیامک">
-                                                <label for="sms_1">پیامک</label>
+                                                <input type="checkbox" id="bale_1" name="passenger_1_messenger" value="بله">
+                                                <label for="bale_1">بله</label>
                                             </div>
                                             <div class="checkbox-item">
                                                 <input type="checkbox" id="telegram_1" name="passenger_1_messenger" value="تلگرام">
@@ -1035,17 +1129,7 @@
                                                 <label for="whatsapp_1">واتساپ</label>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- تایید اطلاعات -->
-                                <div class="form-section">
-                                    <h3><span class="train-icon">✅</span>تایید اطلاعات</h3>
-                                    <div class="form-group">
-                                        <div class="checkbox-item" style="background: rgba(22, 163, 74, 0.1); border: 2px solid #16a34a;">
-                                            <input type="checkbox" id="confirmInfo_1" name="passenger_1_confirm_info" value="تایید" required>
-                                            <label for="confirmInfo_1">تمام اطلاعات وارد شده صحیح می‌باشد</label>
-                                        </div>
+                                        <div class="error-text">حداقل یک پیام‌رسان را انتخاب کنید</div>
                                     </div>
                                 </div>
                                 
@@ -1057,6 +1141,14 @@
                                         <textarea id="description_1" name="passenger_1_description" placeholder="توضیحات اضافی خود را اینجا بنویسید..."></textarea>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <!-- تأیید صحت اطلاعات -->
+                        <div class="confirmation-section">
+                            <div class="confirmation-item">
+                                <input type="checkbox" id="dataConfirmation" name="data_confirmation" value="تأیید شده" required>
+                                <label for="dataConfirmation">تمام اطلاعات وارد شده صحیح می‌باشد</label>
                             </div>
                         </div>
                         
@@ -1135,6 +1227,41 @@
                 countryInput.required = true;
                 nationalCodeInput.value = '';
             }
+        }
+
+        // اعتبارسنجی شماره پاسپورت بهبود یافته
+        function validatePassport(input) {
+            const passportValue = input.value.trim();
+            
+            if (!passportValue) {
+                if (input.required) {
+                    input.setCustomValidity('شماره پاسپورت را وارد کنید');
+                } else {
+                    input.setCustomValidity('');
+                }
+                return;
+            }
+            
+            // حداقل 6 کاراکتر و حداکثر 15 کاراکتر
+            if (passportValue.length < 6 || passportValue.length > 15) {
+                input.setCustomValidity('شماره پاسپورت باید بین 6 تا 15 کاراکتر باشد');
+                return;
+            }
+            
+            // فقط حروف انگلیسی و اعداد مجاز
+            const passportPattern = /^[A-Za-z0-9]+$/;
+            if (!passportPattern.test(passportValue)) {
+                input.setCustomValidity('شماره پاسپورت فقط می‌تواند شامل حروف انگلیسی و اعداد باشد');
+                return;
+            }
+            
+            // حداقل یک حرف داشته باشد
+            if (!/[A-Za-z]/.test(passportValue)) {
+                input.setCustomValidity('شماره پاسپورت باید حداقل یک حرف داشته باشد');
+                return;
+            }
+            
+            input.setCustomValidity('');
         }
 
         // فرمت کردن تاریخ شمسی
@@ -1306,13 +1433,39 @@
             const checkboxes = document.querySelectorAll(`input[name="passenger_${passengerNumber}_messenger"]`);
             const isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
             
-            checkboxes.forEach(checkbox => {
-                if (!isChecked) {
-                    checkbox.setCustomValidity('حداقل یک پیام‌رسان را انتخاب کنید');
-                } else {
-                    checkbox.setCustomValidity('');
+            const messengerSection = checkboxes[0]?.closest('.form-group');
+            
+            if (!isChecked) {
+                if (messengerSection) {
+                    messengerSection.classList.add('error');
                 }
-            });
+                checkboxes.forEach(checkbox => {
+                    checkbox.setCustomValidity('حداقل یک پیام‌رسان را انتخاب کنید');
+                });
+                return false;
+            } else {
+                if (messengerSection) {
+                    messengerSection.classList.remove('error');
+                }
+                checkboxes.forEach(checkbox => {
+                    checkbox.setCustomValidity('');
+                });
+                return true;
+            }
+        }
+
+        // تابع نمایش خطا
+        function showFieldError(fieldId, show = true) {
+            const field = document.getElementById(fieldId);
+            const formGroup = field?.closest('.form-group');
+            
+            if (formGroup) {
+                if (show && field.validationMessage) {
+                    formGroup.classList.add('error');
+                } else {
+                    formGroup.classList.remove('error');
+                }
+            }
         }
 
         // راه‌اندازی validation برای فرم
@@ -1330,6 +1483,7 @@
                 
                 birthDateInput.addEventListener('blur', function() {
                     validatePersianDate(this);
+                    showFieldError(this.id);
                 });
             }
             
@@ -1340,6 +1494,7 @@
                 
                 departureDateInput.addEventListener('blur', function() {
                     validatePersianDate(this);
+                    showFieldError(this.id);
                 });
             }
             
@@ -1354,6 +1509,24 @@
                     const iranianRadio = document.getElementById(`iranian_${passengerNumber}`);
                     if (iranianRadio && iranianRadio.checked) {
                         validateNationalCode(this);
+                        showFieldError(this.id);
+                    }
+                });
+            }
+
+            // اعتبارسنجی پاسپورت
+            const passportInput = document.getElementById(`passportNumber_${passengerNumber}`);
+            if (passportInput) {
+                passportInput.addEventListener('input', function() {
+                    // فقط حروف انگلیسی و اعداد مجاز
+                    this.value = this.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+                });
+                
+                passportInput.addEventListener('blur', function() {
+                    const foreignRadio = document.getElementById(`foreign_${passengerNumber}`);
+                    if (foreignRadio && foreignRadio.checked) {
+                        validatePassport(this);
+                        showFieldError(this.id);
                     }
                 });
             }
@@ -1363,6 +1536,7 @@
             if (mobileInput) {
                 mobileInput.addEventListener('blur', function() {
                     validateMobile(this);
+                    showFieldError(this.id);
                 });
             }
 
@@ -1377,6 +1551,7 @@
                 // فرمت کردن هنگام خروج از فیلد
                 priceInput.addEventListener('blur', function() {
                     formatPrice(this);
+                    showFieldError(this.id);
                 });
                 
                 // فقط اعداد و بک‌اسپیس و حذف
@@ -1402,7 +1577,25 @@
             // اعتبارسنجی پیام‌رسان
             const messengerCheckboxes = document.querySelectorAll(`input[name="passenger_${passengerNumber}_messenger"]`);
             messengerCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', () => validateMessengers(passengerNumber));
+                checkbox.addEventListener('change', () => {
+                    validateMessengers(passengerNumber);
+                });
+            });
+
+            // اعتبارسنجی سایر فیلدها
+            const requiredFields = [
+                'passengerName_1',
+                'route_1',
+                'trainType_1'
+            ];
+
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('blur', function() {
+                        showFieldError(this.id);
+                    });
+                }
             });
         }
 
@@ -1415,19 +1608,34 @@
             document.getElementById('trainTicketForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // بررسی تایید اطلاعات
-                const confirmCheckbox = document.getElementById('confirmInfo_1');
-                if (!confirmCheckbox.checked) {
-                    alert('لطفاً تایید کنید که تمام اطلاعات وارد شده صحیح است');
-                    confirmCheckbox.focus();
+                // بررسی انتخاب پیام‌رسان
+                const messengerValid = validateMessengers(1);
+                if (!messengerValid) {
+                    alert('لطفاً حداقل یک پیام‌رسان را انتخاب کنید');
                     return;
                 }
                 
-                // بررسی انتخاب پیام‌رسان
-                validateMessengers(1);
-                const messengerError = document.querySelector('input[name="passenger_1_messenger"]').validationMessage;
-                if (messengerError) {
-                    alert('لطفاً حداقل یک پیام‌رسان را انتخاب کنید');
+                // بررسی تأیید صحت اطلاعات
+                const dataConfirmation = document.getElementById('dataConfirmation');
+                if (!dataConfirmation.checked) {
+                    alert('لطفاً صحت اطلاعات وارد شده را تأیید کنید');
+                    return;
+                }
+
+                // بررسی اعتبار تمام فیلدها
+                const formIsValid = this.checkValidity();
+                if (!formIsValid) {
+                    // نمایش خطاهای validation
+                    const invalidFields = this.querySelectorAll(':invalid');
+                    invalidFields.forEach(field => {
+                        showFieldError(field.id, true);
+                    });
+                    
+                    // اسکرول به اولین فیلد نامعتبر
+                    if (invalidFields.length > 0) {
+                        invalidFields[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        invalidFields[0].focus();
+                    }
                     return;
                 }
                 
@@ -1455,6 +1663,7 @@
                 
                 console.log('🚂 Sending train ticket request to webhook:', this.action);
                 console.log('📋 Form type: train_ticket for single passenger');
+                console.log('📱 Selected messengers:', messengers);
                 
                 fetch(this.action, {
                     method: 'POST',
@@ -1476,6 +1685,11 @@
                         document.getElementById('passportField_1').classList.remove('show');
                         document.getElementById('countryField_1').style.display = 'none';
                         document.getElementById('countryField_1').classList.remove('show');
+                        
+                        // پاک کردن خطاها
+                        document.querySelectorAll('.form-group.error').forEach(group => {
+                            group.classList.remove('error');
+                        });
                         
                         // اسکرول به پیام موفقیت
                         successMessage.scrollIntoView({ behavior: 'smooth' });
