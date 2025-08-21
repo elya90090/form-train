@@ -801,6 +801,107 @@
             display: block;
         }
 
+        /* استایل انتخاب تعداد مسافر - تغییر یافته */
+        .passenger-count-section {
+            background: linear-gradient(135deg, #16a34a 0%, #059669 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 25px rgba(22, 163, 74, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.9);
+        }
+        
+        .passenger-count-section h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .passenger-selector {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .passenger-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 70px;
+        }
+        
+        .passenger-option:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+        
+        .passenger-option.selected {
+            background: rgba(255, 255, 255, 0.35);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .passenger-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .passenger-number {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .passenger-label {
+            font-size: 13px;
+            margin-top: 3px;
+        }
+        
+        /* استایل‌های ریسپانسیو برای بخش جدید */
+        @media (max-width: 768px) {
+            .passenger-selector {
+                gap: 8px;
+            }
+            
+            .passenger-option {
+                min-width: 60px;
+                padding: 10px;
+            }
+            
+            .passenger-icon {
+                font-size: 18px;
+            }
+            
+            .passenger-number {
+                font-size: 14px;
+            }
+            
+            .passenger-label {
+                font-size: 11px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .passenger-selector {
+                grid-template-columns: repeat(3, 1fr);
+                display: grid;
+            }
+            
+            .passenger-option {
+                min-width: auto;
+            }
+        }
+
         /* ریسپانسیو تبلت */
         @media (max-width: 1024px) {
             .main-layout {
@@ -951,7 +1052,7 @@
     <div class="main-layout">
         <!-- تبلیغات سمت چپ - رزرواسیون و خدمات -->
         <div class="sidebar-left">
-            <div class="reservation-ad" onclick="window.open('https://parvazyab24.com', '_blank')">
+            <div class="reservation-ad" onclick="window.open('https://parvazyab24.com  ', '_blank')">
                 <h3>سیستم رزرواسیون آنلاین</h3>
                 <p>وایت لیبل</p>
                 <p>وب سرویس</p>
@@ -959,7 +1060,7 @@
                     WWW.TRIPCENTER.IR
                 </div>
             </div>
-            <div class="travel-ad" onclick="window.open('https://parvazyab24.com', '_blank')">
+            <div class="travel-ad" onclick="window.open('https://parvazyab24.com  ', '_blank')">
                 <h3>خدمات مسافرتی</h3>
                 <p>ارائه کلیه خدمات:</p>
                 <div class="service">پرواز</div>
@@ -979,14 +1080,6 @@
                 </div>
                 
                 <div class="tab-content">
-                    <!-- پیام توضیحی اول -->
-                    <div class="notice-section">
-                        <div class="notice-content">
-                            <span class="notice-icon">📋</span>
-                            <span class="notice-text">هر فرم برای یک نفر هست</span>
-                        </div>
-                    </div>
-
                     <!-- پیام توضیحی دوم بهبود یافته -->
                     <div class="info-notice">
                         <div class="info-notice-content">
@@ -996,151 +1089,181 @@
                         </div>
                     </div>
 
-                    <form id="trainTicketForm" action="https://nika2000.app.n8n.cloud/webhook/cd7fe8a2-646e-4243-b67b-0b1a7e28321d" method="POST">
+                    <form id="trainTicketForm" action="https://nika2000.app.n8n.cloud/webhook/cd7fe8a2-646e-4243-b67b-0b1a7e28321d  " method="POST">
                         <!-- Hidden field برای تشخیص نوع فرم -->
                         <input type="hidden" name="formType" value="train_ticket">
                         
-                        <!-- فرم‌های مسافران -->
-                        <div class="passenger-forms" id="passengerForms">
-                            <!-- فرم مسافر اول -->
-                            <div class="passenger-form active" data-passenger="1">
-                                <div class="passenger-header">
-                                    <h2>مشخصات مسافر</h2>
+                        <!-- اطلاعات سفر -->
+                        <div class="form-section">
+                            <h3><span class="train-icon">🚂</span>اطلاعات سفر</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="route_1">مسیر <span class="required">*</span></label>
+                                    <input type="text" id="route_1" name="passenger_1_route" placeholder="مثال: تهران - مشهد" required>
+                                    <div class="error-text">مسیر سفر را وارد کنید</div>
                                 </div>
-                                
-                                <!-- مشخصات مسافر -->
-                                <div class="form-section">
-                                    <h3><span class="train-icon">👤</span>مشخصات مسافر</h3>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="passengerName_1">نام و نام خانوادگی مسافر <span class="required">*</span></label>
-                                            <input type="text" id="passengerName_1" name="passenger_1_name" required>
-                                            <div class="error-text">لطفاً نام و نام خانوادگی را وارد کنید</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="nationality_1">ملیت <span class="required">*</span></label>
-                                            <div class="radio-group">
-                                                <div class="radio-item">
-                                                    <input type="radio" id="iranian_1" name="passenger_1_nationality" value="ایرانی" required onchange="toggleNationalityFields(1)">
-                                                    <label for="iranian_1">ایرانی</label>
-                                                </div>
-                                                <div class="radio-item">
-                                                    <input type="radio" id="foreign_1" name="passenger_1_nationality" value="خارجی" required onchange="toggleNationalityFields(1)">
-                                                    <label for="foreign_1">خارجی</label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="form-group">
+                                    <label for="departureDate_1">تاریخ حرکت <span class="required">*</span></label>
+                                    <div class="date-input">
+                                        <input type="text" id="departureDate_1" name="passenger_1_departure_date" placeholder="1403/05/28" pattern="[0-9]{4}/[0-9]{2}/[0-9]{2}" required maxlength="10">
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group" id="nationalCodeField_1">
-                                            <label for="nationalCode_1">کد ملی</label>
-                                            <input type="text" id="nationalCode_1" name="passenger_1_national_code" placeholder="کد ملی 10 رقمی" maxlength="10" pattern="[0-9]{10}">
-                                            <div class="error-text">کد ملی معتبر نیست</div>
-                                        </div>
-                                        <div class="form-group conditional-field" id="passportField_1">
-                                            <label for="passportNumber_1">شماره پاسپورت <span class="required">*</span></label>
-                                            <input type="text" id="passportNumber_1" name="passenger_1_passport" placeholder="شماره پاسپورت">
-                                            <div class="error-text">شماره پاسپورت معتبر نیست</div>
-                                        </div>
-                                        <div class="form-group conditional-field" id="countryField_1">
-                                            <label for="country_1">نام کشور <span class="required">*</span></label>
-                                            <input type="text" id="country_1" name="passenger_1_country" placeholder="نام کشور">
-                                            <div class="error-text">نام کشور را وارد کنید</div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="birthDate_1">تاریخ تولد <span class="required">*</span></label>
-                                            <div class="date-input">
-                                                <input type="text" id="birthDate_1" name="passenger_1_birth_date" placeholder="1370/01/01" pattern="[0-9]{4}/[0-9]{2}/[0-9]{2}" required maxlength="10">
-                                            </div>
-                                            <div class="error-text">تاریخ تولد معتبر نیست</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="mobile_1">شماره همراه <span class="required">*</span></label>
-                                            <input type="tel" id="mobile_1" name="passenger_1_mobile" placeholder="09xxxxxxxxx" required>
-                                            <div class="error-text">شماره موبایل معتبر نیست</div>
-                                        </div>
-                                    </div>
+                                    <div class="error-text">تاریخ حرکت معتبر نیست</div>
                                 </div>
-                                
-                                <!-- اطلاعات سفر -->
-                                <div class="form-section">
-                                    <h3><span class="train-icon">🚂</span>اطلاعات سفر</h3>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="route_1">مسیر <span class="required">*</span></label>
-                                            <input type="text" id="route_1" name="passenger_1_route" placeholder="مثال: تهران - مشهد" required>
-                                            <div class="error-text">مسیر سفر را وارد کنید</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="departureDate_1">تاریخ حرکت <span class="required">*</span></label>
-                                            <div class="date-input">
-                                                <input type="text" id="departureDate_1" name="passenger_1_departure_date" placeholder="1404/05/28" pattern="[0-9]{4}/[0-9]{2}/[0-9]{2}" required maxlength="10">
-                                            </div>
-                                            <div class="error-text">تاریخ حرکت معتبر نیست</div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="trainType_1">نوع قطار <span class="required">*</span></label>
-                                            <select id="trainType_1" name="passenger_1_train_type" required>
-                                                <option value="">انتخاب کنید</option>
-                                                <option value="قطار 6 تخته">قطار 6 تخته</option>
-                                                <option value="قطار 4 تخته">قطار 4 تخته</option>
-                                                <option value="تندرو">تندرو</option>
-                                                <option value="اتوبوسی">اتوبوسی</option>
-                                            </select>
-                                            <div class="error-text">نوع قطار را انتخاب کنید</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="suggestedPrice_1">مبلغی که میخواهید هزینه کنید (تومان) <span class="required">*</span></label>
-                                            <div class="price-input">
-                                                <input type="text" id="suggestedPrice_1" name="passenger_1_suggested_price" placeholder="10,000,000" min="0" required style="padding-left: 60px;">
-                                            </div>
-                                            <div class="error-text">مبلغ را وارد کنید</div>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="trainType_1">نوع قطار <span class="required">*</span></label>
+                                    <select id="trainType_1" name="passenger_1_train_type" required>
+                                        <option value="">انتخاب کنید</option>
+                                        <option value="قطار 6 تخته">قطار 6 تخته</option>
+                                        <option value="قطار 4 تخته">قطار 4 تخته</option>
+                                        <option value="تندرو">تندرو</option>
+                                        <option value="اتوبوسی">اتوبوسی</option>
+                                    </select>
+                                    <div class="error-text">نوع قطار را انتخاب کنید</div>
                                 </div>
-                                
-                                <!-- پیام‌رسان -->
-                                <div class="form-section">
-                                    <h3><span class="train-icon">💬</span>پیام‌رسان</h3>
-                                    <div class="form-group">
-                                        <label>پیام‌رسان مورد نظر برای اطلاع‌رسانی <span class="required">*</span></label>
-                                        <div class="messenger-note">
-                                            می‌توانید یک یا چند پیام‌رسان را انتخاب کنید
+                                <div class="form-group">
+                                    <label for="suggestedPrice_1">مبلغی که میخواهید هزینه کنید (تومان) <span class="required">*</span></label>
+                                    <div class="price-input">
+                                        <input type="text" id="suggestedPrice_1" name="passenger_1_suggested_price" placeholder="10,000,000" min="0" required style="padding-left: 60px;">
+                                    </div>
+                                    <div class="error-text">مبلغ را وارد کنید</div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="mobile_1">شماره همراه <span class="required">*</span></label>
+                                    <input type="tel" id="mobile_1" name="passenger_1_mobile" placeholder="09xxxxxxxxx" required>
+                                    <div class="error-text">شماره موبایل معتبر نیست</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- انتخاب تعداد مسافر - بخش جدید -->
+                        <div class="passenger-count-section">
+                            <h3><span class="train-icon">👥</span>تعداد مسافر</h3>
+                            <div class="passenger-selector">
+                                <div class="passenger-option selected" data-count="1" onclick="selectPassengerCount(1)">
+                                    <div class="passenger-icon">👤</div>
+                                    <div class="passenger-number">1</div>
+                                    <div class="passenger-label">مسافر</div>
+                                </div>
+                                <div class="passenger-option" data-count="2" onclick="selectPassengerCount(2)">
+                                    <div class="passenger-icon">👥</div>
+                                    <div class="passenger-number">2</div>
+                                    <div class="passenger-label">مسافر</div>
+                                </div>
+                                <div class="passenger-option" data-count="3" onclick="selectPassengerCount(3)">
+                                    <div class="passenger-icon">👥</div>
+                                    <div class="passenger-number">3</div>
+                                    <div class="passenger-label">مسافر</div>
+                                </div>
+                                <div class="passenger-option" data-count="4" onclick="selectPassengerCount(4)">
+                                    <div class="passenger-icon">👥</div>
+                                    <div class="passenger-number">4</div>
+                                    <div class="passenger-label">مسافر</div>
+                                </div>
+                                <div class="passenger-option" data-count="5" onclick="selectPassengerCount(5)">
+                                    <div class="passenger-icon">👥</div>
+                                    <div class="passenger-number">5</div>
+                                    <div class="passenger-label">مسافر</div>
+                                </div>
+                                <div class="passenger-option" data-count="6" onclick="selectPassengerCount(6)">
+                                    <div class="passenger-icon">👥</div>
+                                    <div class="passenger-number">6</div>
+                                    <div class="passenger-label">مسافر</div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="passengerCount" name="passenger_count" value="1">
+                        </div>
+                        
+                        <!-- مشخصات مسافر -->
+                        <div class="form-section">
+                            <h3><span class="train-icon">👤</span>مشخصات مسافر</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="passengerName_1">نام و نام خانوادگی مسافر <span class="required">*</span></label>
+                                    <input type="text" id="passengerName_1" name="passenger_1_name" required>
+                                    <div class="error-text">لطفاً نام و نام خانوادگی را وارد کنید</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nationality_1">ملیت <span class="required">*</span></label>
+                                    <div class="radio-group">
+                                        <div class="radio-item">
+                                            <input type="radio" id="iranian_1" name="passenger_1_nationality" value="ایرانی" required onchange="toggleNationalityFields(1)">
+                                            <label for="iranian_1">ایرانی</label>
                                         </div>
-                                        <div class="messenger-grid">
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="bale_1" name="passenger_1_messenger" value="بله">
-                                                <label for="bale_1">بله</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="telegram_1" name="passenger_1_messenger" value="تلگرام">
-                                                <label for="telegram_1">تلگرام</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="eitaa_1" name="passenger_1_messenger" value="ایتا">
-                                                <label for="eitaa_1">ایتا</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="whatsapp_1" name="passenger_1_messenger" value="واتساپ">
-                                                <label for="whatsapp_1">واتساپ</label>
-                                            </div>
+                                        <div class="radio-item">
+                                            <input type="radio" id="foreign_1" name="passenger_1_nationality" value="خارجی" required onchange="toggleNationalityFields(1)">
+                                            <label for="foreign_1">خارجی</label>
                                         </div>
-                                        <div class="error-text">حداقل یک پیام‌رسان را انتخاب کنید</div>
                                     </div>
                                 </div>
-                                
-                                <!-- توضیحات -->
-                                <div class="form-section">
-                                    <h3><span class="train-icon">📝</span>توضیحات</h3>
-                                    <div class="form-group">
-                                        <label for="description_1">توضیحات اضافی</label>
-                                        <textarea id="description_1" name="passenger_1_description" placeholder="توضیحات اضافی خود را اینجا بنویسید..."></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group" id="nationalCodeField_1">
+                                    <label for="nationalCode_1">کد ملی</label>
+                                    <input type="text" id="nationalCode_1" name="passenger_1_national_code" placeholder="کد ملی 10 رقمی" maxlength="10" pattern="[0-9]{10}">
+                                    <div class="error-text">کد ملی معتبر نیست</div>
+                                </div>
+                                <div class="form-group conditional-field" id="passportField_1">
+                                    <label for="passportNumber_1">شماره پاسپورت <span class="required">*</span></label>
+                                    <input type="text" id="passportNumber_1" name="passenger_1_passport" placeholder="شماره پاسپورت">
+                                    <div class="error-text">شماره پاسپورت معتبر نیست</div>
+                                </div>
+                                <div class="form-group conditional-field" id="countryField_1">
+                                    <label for="country_1">نام کشور <span class="required">*</span></label>
+                                    <input type="text" id="country_1" name="passenger_1_country" placeholder="نام کشور">
+                                    <div class="error-text">نام کشور را وارد کنید</div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="birthDate_1">تاریخ تولد <span class="required">*</span></label>
+                                    <div class="date-input">
+                                        <input type="text" id="birthDate_1" name="passenger_1_birth_date" placeholder="1370/01/01" pattern="[0-9]{4}/[0-9]{2}/[0-9]{2}" required maxlength="10">
+                                    </div>
+                                    <div class="error-text">تاریخ تولد معتبر نیست</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- پیام‌رسان -->
+                        <div class="form-section">
+                            <h3><span class="train-icon">💬</span>پیام‌رسان</h3>
+                            <div class="form-group">
+                                <label>پیام‌رسان مورد نظر برای اطلاع‌رسانی <span class="required">*</span></label>
+                                <div class="messenger-note">
+                                    می‌توانید یک یا چند پیام‌رسان را انتخاب کنید
+                                </div>
+                                <div class="messenger-grid">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="bale_1" name="passenger_1_messenger" value="بله">
+                                        <label for="bale_1">بله</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="telegram_1" name="passenger_1_messenger" value="تلگرام">
+                                        <label for="telegram_1">تلگرام</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="eitaa_1" name="passenger_1_messenger" value="ایتا">
+                                        <label for="eitaa_1">ایتا</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="whatsapp_1" name="passenger_1_messenger" value="واتساپ">
+                                        <label for="whatsapp_1">واتساپ</label>
                                     </div>
                                 </div>
+                                <div class="error-text">حداقل یک پیام‌رسان را انتخاب کنید</div>
+                            </div>
+                        </div>
+                        
+                        <!-- توضیحات -->
+                        <div class="form-section">
+                            <h3><span class="train-icon">📝</span>توضیحات</h3>
+                            <div class="form-group">
+                                <label for="description_1">توضیحات اضافی</label>
+                                <textarea id="description_1" name="passenger_1_description" placeholder="توضیحات اضافی خود را اینجا بنویسید..."></textarea>
                             </div>
                         </div>
                         
@@ -1170,7 +1293,7 @@
         
         <!-- تبلیغات سمت راست - CIP -->
         <div class="sidebar-right">
-            <div class="cip-ad" onclick="window.open('https://parvazyab24.com', '_blank')">
+            <div class="cip-ad" onclick="window.open('https://parvazyab24.com  ', '_blank')">
                 <h3>CIP</h3>
                 <p>در حین خرید پرواز</p>
                 <p>تا یک کلیک</p>
@@ -1178,7 +1301,7 @@
                     CIP خود را رزرو کنید
                 </div>
             </div>
-            <div class="cip-ad" onclick="window.open('https://parvazyab24.com', '_blank')">
+            <div class="cip-ad" onclick="window.open('https://parvazyab24.com  ', '_blank')">
                 <h3>CIP LOUNGE</h3>
                 <p>خدمات VIP فرودگاهی</p>
                 <p>سالن انتظار اختصاصی</p>
@@ -1195,6 +1318,24 @@
     </div>
     
     <script>
+        // تابع انتخاب تعداد مسافر
+        function selectPassengerCount(count) {
+            // ذخیره تعداد انتخاب شده
+            document.getElementById('passengerCount').value = count;
+            
+            // برجسته کردن گزینه انتخاب شده
+            document.querySelectorAll('.passenger-option').forEach(option => {
+                if (parseInt(option.getAttribute('data-count')) === count) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+            
+            // نمایش پیام برای کاربر
+            alert(`تعداد ${count} مسافر انتخاب شد. در این نسخه دمو فقط امکان ثبت یک مسافر وجود دارد.`);
+        }
+
         // تابع تغییر فیلدهای ملیت
         function toggleNationalityFields(passengerNumber = 1) {
             const iranianRadio = document.getElementById(`iranian_${passengerNumber}`);
@@ -1286,7 +1427,7 @@
             const match = dateValue.match(datePattern);
             
             if (!match) {
-                input.setCustomValidity('تاریخ باید در فرمت 1404/05/28 باشد');
+                input.setCustomValidity('تاریخ باید در فرمت 1403/05/28 باشد');
                 return;
             }
             
